@@ -30,14 +30,43 @@ class Re
 	/** @var string */
 	private static $delimiter = "\x03";
 
+	public static function match($expression, $input, &$output, $flags = '')
+	{
+		$pattern = self::getPattern($expression, $flags);
+
+		if (preg_match($pattern, $input, $match) !== 1) {
+			return false;
+		}
+
+		if (count($match) === 1) {
+			$output = $match[0];
+		} else {
+			$output = $match;
+		}
+
+		return true;
+	}
+
+	private static function getPattern($expression, $flags)
+	{
+		return self::$delimiter . $expression . self::$delimiter . $flags . 'XDs';
+	}
+
 	public static function quote($literal)
 	{
 		return preg_quote($literal, self::$delimiter);
 	}
 
+	public static function replace($expression, $replacement, $input, $flags = '')
+	{
+		$pattern = self::getPattern($expression, $flags);
+
+		return preg_replace($pattern, $replacement, $input);
+	}
+
 	public static function split($expression, $input, $flags = '')
 	{
-		$pattern = self::$delimiter . $expression . self::$delimiter . $flags . 'XDs';
+		$pattern = self::getPattern($expression, $flags);
 
 		$matches = preg_split($pattern, $input);
 
@@ -55,22 +84,5 @@ class Re
 		}
 
 		return $chunks;
-	}
-
-	public static function match($expression, $input, &$output, $flags = '')
-	{
-		$pattern = self::$delimiter . $expression . self::$delimiter . $flags . 'XDs';
-
-		if (preg_match($pattern, $input, $match) !== 1) {
-			return false;
-		}
-
-		if (1 < count($match)) {
-			$output = $match;
-		} else {
-			$output = $match[0];
-		}
-
-		return true;
 	}
 }
