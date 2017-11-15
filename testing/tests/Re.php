@@ -35,6 +35,64 @@ $match = array('3 - 1', '3', '1');
 
 
 // Test
+$isMatch = Re::matches($expression, $input, $matches, $flags);
+
+// Input
+$expression = 'a+';
+$input = 'b';
+$flags = '';
+
+// Output
+$isMatch = false;
+$matches = null;
+
+// Input
+$expression = 'a+';
+$input = 'ba';
+$flags = '';
+
+// Output
+$isMatch = true;
+$matches = array('a');
+
+// Input
+$expression = 'a+';
+$input = 'babaa';
+$flags = '';
+
+// Output
+$isMatch = true;
+$matches = array('a', 'aa');
+
+// Input
+$expression = 'a+';
+$input = 'BABAA';
+$flags = '';
+
+// Output
+$isMatch = false;
+$matches = null;
+
+// Input
+$expression = 'a+';
+$input = 'BABAA';
+$flags = 'i';
+
+// Output
+$isMatch = true;
+$matches = array('A', 'AA');
+
+// Input
+$expression = 'b(a+)';
+$input = 'babaa';
+$flags = '';
+
+// Output
+$isMatch = true;
+$matches = array(array('ba', 'a'), array('baa', 'aa'));
+
+
+// Test
 $output = Re::quote($input);
 
 // Input

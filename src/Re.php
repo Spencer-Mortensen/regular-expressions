@@ -30,26 +30,47 @@ class Re
 	/** @var string */
 	private static $delimiter = "\x03";
 
-	public static function match($expression, $input, &$output, $flags = '')
+	public static function match($expression, $input, &$match, $flags = '')
 	{
 		$pattern = self::getPattern($expression, $flags);
 
-		if (preg_match($pattern, $input, $match) !== 1) {
+		if (preg_match($pattern, $input, $parts) !== 1) {
 			return false;
 		}
 
-		if (count($match) === 1) {
-			$output = $match[0];
-		} else {
-			$output = $match;
-		}
-
+		$match = self::getMatch($parts);
 		return true;
 	}
 
 	private static function getPattern($expression, $flags)
 	{
 		return self::$delimiter . $expression . self::$delimiter . $flags . 'XDs';
+	}
+
+	private static function getMatch(array $parts)
+	{
+		if (count($parts) === 1) {
+			return $parts[0];
+		}
+
+		return $parts;
+	}
+
+	public static function matches($expression, $input, &$matches, $flags = '')
+	{
+		$pattern = self::getPattern($expression, $flags);
+
+		$count = preg_match_all($pattern, $input, $parts, PREG_SET_ORDER);
+
+		if (!is_integer($count) || ($count < 1)) {
+			return false;
+		}
+
+		foreach ($parts as $part) {
+			$matches[] = self::getMatch($part);
+		}
+
+		return true;
 	}
 
 	public static function quote($literal)
