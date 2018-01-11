@@ -30,7 +30,7 @@ class Re
 	/** @var string */
 	private static $delimiter = "\x03";
 
-	public static function match($expression, $input, &$match, $flags = '')
+	public static function match($expression, $input, &$match = null, $flags = '')
 	{
 		$pattern = self::getPattern($expression, $flags);
 
