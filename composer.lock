@@ -1,0 +1,64 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "38cb7661c61204f5b1308af9ef96656e",
+    "packages": [
+        {
+            "name": "spencer-mortensen/autoloader",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Spencer-Mortensen/autoloader.git",
+                "reference": "4ca8ea51153fae2da457c95ce4d90dfb7aef127e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Spencer-Mortensen/autoloader/zipball/4ca8ea51153fae2da457c95ce4d90dfb7aef127e",
+                "reference": "4ca8ea51153fae2da457c95ce4d90dfb7aef127e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SpencerMortensen\\Autoloader\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Spencer Mortensen",
+                    "email": "spencer@lens.guide",
+                    "homepage": "http://spencermortensen.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Autoload PHP classes",
+            "homepage": "https://github.com/spencer-mortensen/autoloader",
+            "keywords": [
+                "PSR-4",
+                "autoload",
+                "autoloader"
+            ],
+            "time": "2018-01-28T13:41:21+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.3.0"
+    },
+    "platform-dev": []
+}

@@ -1,3 +1,4 @@
-/testing/coverage/
+/lens/coverage/
+/vendor/
 *.swp
 TODO
