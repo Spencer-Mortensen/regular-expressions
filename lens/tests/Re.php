@@ -31,7 +31,7 @@ $flags = '';
 
 // Output
 $isMatch = true;
-$match = array('3 - 1', '3', '1');
+$match = ['3 - 1', '3', '1'];
 
 
 // Test
@@ -53,7 +53,7 @@ $flags = '';
 
 // Output
 $isMatch = true;
-$matches = array('a');
+$matches = ['a'];
 
 // Input
 $expression = 'a+';
@@ -62,7 +62,7 @@ $flags = '';
 
 // Output
 $isMatch = true;
-$matches = array('a', 'aa');
+$matches = ['a', 'aa'];
 
 // Input
 $expression = 'a+';
@@ -80,7 +80,7 @@ $flags = 'i';
 
 // Output
 $isMatch = true;
-$matches = array('A', 'AA');
+$matches = ['A', 'AA'];
 
 // Input
 $expression = 'b(a+)';
@@ -89,7 +89,7 @@ $flags = '';
 
 // Output
 $isMatch = true;
-$matches = array(array('ba', 'a'), array('baa', 'aa'));
+$matches = [['ba', 'a'], ['baa', 'aa']];
 
 
 // Test
@@ -151,7 +151,7 @@ $input = '';
 $flags = '';
 
 // Output
-$matches = array();
+$matches = [];
 
 // Input
 $expression = ',\s*';
@@ -159,7 +159,7 @@ $input = ',';
 $flags = '';
 
 // Output
-$matches = array();
+$matches = [];
 
 // Input
 $expression = ',\s*';
@@ -167,7 +167,7 @@ $input = 'a';
 $flags = '';
 
 // Output
-$matches = array('a');
+$matches = ['a'];
 
 // Input
 $expression = ',\s*';
@@ -175,7 +175,7 @@ $input = 'a,b';
 $flags = '';
 
 // Output
-$matches = array('a', 'b');
+$matches = ['a', 'b'];
 
 // Input
 $expression = ',\s*';
@@ -183,4 +183,4 @@ $input = ', a, , b, ';
 $flags = '';
 
 // Output
-$matches = array('a', 'b');
+$matches = ['a', 'b'];
