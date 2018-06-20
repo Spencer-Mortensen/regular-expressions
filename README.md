@@ -8,4 +8,4 @@ This project is available as a Composer package:
 
 This project uses the [Lens](http://lens.guide) unit-testing framework.
 
-[![Build Status](https://travis-ci.org/Spencer-Mortensen/regular-expressions.png?branch=master)](https://travis-ci.org/Spencer-Mortensen/regular-expressions)
+[![Build Status](https://travis-ci.org/spencer-mortensen/regular-expressions.png?branch=master)](https://travis-ci.org/spencer-mortensen/regular-expressions)
