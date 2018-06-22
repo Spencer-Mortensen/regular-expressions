@@ -6,30 +6,30 @@ namespace SpencerMortensen\RegularExpressions;
 // Test
 $isMatch = Re::match($expression, $input, $match, $flags);
 
-// Input
+// Cause
 $expression = 'a+';
 $input = 'baaa';
 $flags = '';
 
-// Output
+// Effect
 $isMatch = true;
 $match = 'aaa';
 
-// Input
+// Cause
 $expression = 'a+';
 $input = 'baaa';
 $flags = 'A';
 
-// Output
+// Effect
 $isMatch = false;
 $match = null;
 
-// Input
+// Cause
 $expression = '^([0-9]+)\\s*-\\s*([0-9]+)$';
 $input = '3 - 1';
 $flags = '';
 
-// Output
+// Effect
 $isMatch = true;
 $match = ['3 - 1', '3', '1'];
 
@@ -37,57 +37,57 @@ $match = ['3 - 1', '3', '1'];
 // Test
 $isMatch = Re::matches($expression, $input, $matches, $flags);
 
-// Input
+// Cause
 $expression = 'a+';
 $input = 'b';
 $flags = '';
 
-// Output
+// Effect
 $isMatch = false;
 $matches = null;
 
-// Input
+// Cause
 $expression = 'a+';
 $input = 'ba';
 $flags = '';
 
-// Output
+// Effect
 $isMatch = true;
 $matches = ['a'];
 
-// Input
+// Cause
 $expression = 'a+';
 $input = 'babaa';
 $flags = '';
 
-// Output
+// Effect
 $isMatch = true;
 $matches = ['a', 'aa'];
 
-// Input
+// Cause
 $expression = 'a+';
 $input = 'BABAA';
 $flags = '';
 
-// Output
+// Effect
 $isMatch = false;
 $matches = null;
 
-// Input
+// Cause
 $expression = 'a+';
 $input = 'BABAA';
 $flags = 'i';
 
-// Output
+// Effect
 $isMatch = true;
 $matches = ['A', 'AA'];
 
-// Input
+// Cause
 $expression = 'b(a+)';
 $input = 'babaa';
 $flags = '';
 
-// Output
+// Effect
 $isMatch = true;
 $matches = [['ba', 'a'], ['baa', 'aa']];
 
@@ -95,92 +95,92 @@ $matches = [['ba', 'a'], ['baa', 'aa']];
 // Test
 $output = Re::quote($input);
 
-// Input
+// Cause
 $input = "x\n'\"^.$\x03";
 
-// Output
+// Effect
 $output = "x\n'\"\\^\\.\\$\\\x03";
 
 
 // Test
 $output = Re::replace($expression, $replacement, $input, $flags);
 
-// Input
+// Cause
 $expression = '[a-z]';
 $replacement = '-';
 $input = 'ab';
 $flags = '';
 
-// Output
+// Effect
 $output = '--';
 
-// Input
+// Cause
 $expression = '[a-z]';
 $replacement = '-';
 $input = 'AB';
 $flags = '';
 
-// Output
+// Effect
 $output = 'AB';
 
-// Input
+// Cause
 $expression = '[a-z]';
 $replacement = '-';
 $input = 'AB';
 $flags = 'i';
 
-// Output
+// Effect
 $output = '--';
 
-// Input
+// Cause
 $expression = '^[a-z]([a-z])$';
 $replacement = '$0,$1';
 $input = 'ab';
 $flags = '';
 
-// Output
+// Effect
 $output = 'ab,b';
 
 
 // Test
 $matches = Re::split($expression, $input, $flags);
 
-// Input
+// Cause
 $expression = ',\s*';
 $input = '';
 $flags = '';
 
-// Output
+// Effect
 $matches = [];
 
-// Input
+// Cause
 $expression = ',\s*';
 $input = ',';
 $flags = '';
 
-// Output
+// Effect
 $matches = [];
 
-// Input
+// Cause
 $expression = ',\s*';
 $input = 'a';
 $flags = '';
 
-// Output
+// Effect
 $matches = ['a'];
 
-// Input
+// Cause
 $expression = ',\s*';
 $input = 'a,b';
 $flags = '';
 
-// Output
+// Effect
 $matches = ['a', 'b'];
 
-// Input
+// Cause
 $expression = ',\s*';
 $input = ', a, , b, ';
 $flags = '';
 
-// Output
+// Effect
 $matches = ['a', 'b'];
