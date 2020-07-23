@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with regular-expressions. If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Spencer Mortensen <spencer@lens.guide>
+ * @author Spencer Mortensen
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL-3.0
  * @copyright 2017 Spencer Mortensen
  */
@@ -27,83 +27,87 @@ namespace SpencerMortensen\RegularExpressions;
 
 class Re
 {
-	/** @var string */
 	private static $delimiter = "\x03";
 
-	public static function match($expression, $input, &$match = null, $flags = '')
+	public static function pattern(string $expression, string $modifiers = '')
 	{
-		$pattern = self::getPattern($expression, $flags);
+		$modifiers .= 'XDs';
 
-		if (preg_match($pattern, $input, $parts) !== 1) {
+		return self::$delimiter . $expression . self::$delimiter . $modifiers;
+	}
+
+	public static function match(string $pattern, string $input, &$output = null, int &$i = 0, bool $showOffsets = false): bool
+	{
+		$flags = PREG_OFFSET_CAPTURE;
+
+		if (preg_match($pattern, $input, $match, $flags, $i) !== 1) {
 			return false;
 		}
 
-		$match = self::getMatch($parts);
+		$output = self::getMatch($match, $showOffsets);
+		$i = $match[0][1] + strlen($match[0][0]);
 		return true;
 	}
 
-	private static function getPattern($expression, $flags)
+	public static function matches(string $pattern, string $input, array &$output = null, int &$i = 0, bool $showOffsets = false): bool
 	{
-		return self::$delimiter . $expression . self::$delimiter . $flags . 'XDs';
-	}
+		$flags = PREG_SET_ORDER | PREG_OFFSET_CAPTURE;
 
-	private static function getMatch(array $parts)
-	{
-		if (count($parts) === 1) {
-			return $parts[0];
-		}
+		$count = preg_match_all($pattern, $input, $matches, $flags, $i);
 
-		return $parts;
-	}
-
-	public static function matches($expression, $input, &$matches, $flags = '')
-	{
-		$pattern = self::getPattern($expression, $flags);
-
-		$count = preg_match_all($pattern, $input, $parts, PREG_SET_ORDER);
-
-		if (!is_integer($count) || ($count < 1)) {
+		if (!is_int($count) || ($count < 1)) {
 			return false;
 		}
 
-		foreach ($parts as $part) {
-			$matches[] = self::getMatch($part);
+		$output = [];
+
+		foreach ($matches as $match) {
+			$output[] = self::getMatch($match, $showOffsets);
 		}
 
+
+		$match = end($matches);
+		$i = $match[0][1] + strlen($match[0][0]);
 		return true;
 	}
 
-	public static function quote($literal)
+	private static function getMatch(array $values, bool $showOffset)
 	{
-		return preg_quote($literal, self::$delimiter);
+		switch (count($values)) {
+			case 1:
+				return self::getValue($values[0], $showOffset);
+
+			case 2:
+				return self::getValue($values[1], $showOffset);
+		}
+
+		for ($i = 0; array_key_exists($i, $values); ++$i) {
+			unset($values[$i]);
+		}
+
+		foreach ($values as &$value) {
+			$value = self::getValue($value, $showOffset);
+		}
+
+		return $values;
 	}
 
-	public static function replace($expression, $replacement, $input, $flags = '')
+	private static function getValue($value, bool $showOffset)
 	{
-		$pattern = self::getPattern($expression, $flags);
+		if (!is_array($value) || $showOffset) {
+			return $value;
+		}
 
+		return $value[0];
+	}
+
+	public static function replace(string $pattern, string $replacement, string $input): string
+	{
 		return preg_replace($pattern, $replacement, $input);
 	}
 
-	public static function split($expression, $input, $flags = '')
+	public static function escape(string $literal)
 	{
-		$pattern = self::getPattern($expression, $flags);
-
-		$matches = preg_split($pattern, $input);
-
-		return self::getChunks($matches);
-	}
-
-	private static function getChunks(array $matches)
-	{
-		$chunks = [];
-
-		foreach ($matches as $match) {
-			if (0 < strlen($match)) {
-				$chunks[] = $match;
-			}
-		}
-
-		return $chunks;
+		return preg_quote($literal, self::$delimiter);
 	}
 }
