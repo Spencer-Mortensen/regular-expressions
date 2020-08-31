@@ -31,7 +31,7 @@ class Re
 
 	public static function pattern(string $expression, string $modifiers = '')
 	{
-		$modifiers .= 'XDs';
+		$modifiers .= 'DusX';
 
 		return self::$delimiter . $expression . self::$delimiter . $modifiers;
 	}
@@ -64,7 +64,6 @@ class Re
 		foreach ($matches as $match) {
 			$output[] = self::getMatch($match, $showOffsets);
 		}
-
 
 		$match = end($matches);
 		$i = $match[0][1] + strlen($match[0][0]);
